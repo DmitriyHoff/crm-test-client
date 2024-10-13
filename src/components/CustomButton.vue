@@ -8,13 +8,16 @@ defineProps<{
 
 <template>
     <button type="button" :disabled="disabled">
-        <span v-if="loading" class="loader"></span>
-        <span v-else>{{ label }}</span>
+        <div class="loader-container">
+            <span v-if="loading" class="loader"></span>
+        </div>
+        <span :class="{ 'opacity-0': loading }">{{ label }}</span>
     </button>
 </template>
 
 <style scoped>
 button {
+    position: relative;
     padding: 6px 12px;
     border: 1px solid #4077d6;
     border-radius: 3px;
@@ -40,6 +43,12 @@ button:disabled {
 button:disabled:hover {
     cursor: not-allowed;
 }
+.loader-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
 .loader {
     width: 1rem;
     height: 1rem;
@@ -48,6 +57,7 @@ button:disabled:hover {
     border-radius: 50%;
     display: inline-block;
     box-sizing: border-box;
+
     animation: rotation 1s linear infinite;
 }
 @keyframes rotation {
